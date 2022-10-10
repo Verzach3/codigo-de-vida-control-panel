@@ -27,6 +27,11 @@ function App() {
     const client = new pocketbaseEs(SERVER_URL);
     const user: User = client.authStore.model as User;
 
+    if (user === null){
+      setIsLoggedIn(false)
+      return
+    }
+
     if (user.verified === undefined) {
       try {
         await client.admins.getOne(client.authStore.model?.id || "");
