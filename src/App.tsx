@@ -15,7 +15,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(ISLOGGEDIN);
   const ref = createRef();
   useEffect(() => {
-    tryLogin();
+    try {
+      tryLogin();
+    } catch (error) {
+      console.log("Error:", error);
+    }
     return () => {};
   }, []);
 
