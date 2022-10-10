@@ -59,7 +59,7 @@ function App() {
         <Route path="/" element={<ControlPanel />}>
           <Route path="pacientes" index element={<Patients />} />
           <Route path="registros" element={<Logs />} />
-          {/* <Route path="usuarios" element={<Users />} /> */}
+          <Route path="usuarios" element={<Users />} />
           <Route path="*" element={<div>:c</div>} />
         </Route>
       ) : (

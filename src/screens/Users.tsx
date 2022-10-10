@@ -10,7 +10,9 @@ import {
   Text,
 } from "@mantine/core";
 import { IconPencil, IconTrash } from "@tabler/icons";
-import React from "react";
+import pocketbaseEs from "pocketbase";
+import React, { useEffect, useState } from "react";
+import { SERVER_URL } from "../State";
 
 interface UsersTableProps {
   data: {
@@ -28,25 +30,37 @@ const jobColors: Record<string, string> = {
   designer: "pink",
 };
 
-export function Users({ data }: UsersTableProps) {
+export function Users() {
   const theme = useMantineTheme();
-  const rows = data?.map((item) => (
-    <tr key={item.name}>
+  const [data, setData] = useState<any>();
+  useEffect(() => {
+    updateUser()
+    return () => {
+    }
+  }, [])
+  
+  async function updateUser(){
+    const client = new pocketbaseEs(SERVER_URL);
+    setData(await client.users.getList())
+
+  }
+
+  const rows = data?.items.map((item: any) => (
+    <tr key={item.id}>
       <td>
         <Group spacing="sm">
-          <Avatar size={30} src={item.avatar} radius={30} />
+          <Avatar size={30} src={item.profile.avatar} radius={30} />
           <Text size="sm" weight={500}>
-            {item.name}
+            {item.profile.name}
           </Text>
         </Group>
       </td>
 
       <td>
         <Badge
-          color={jobColors[item.job.toLowerCase()]}
           variant={theme.colorScheme === "dark" ? "light" : "outline"}
         >
-          {item.job}
+          {item.profile.access_level}
         </Badge>
       </td>
       <td>
