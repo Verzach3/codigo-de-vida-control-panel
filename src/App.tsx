@@ -9,9 +9,11 @@ import { Routes, Route } from "react-router-dom";
 import pocketbaseEs, { Admin, User } from "pocketbase";
 import Logs from "./screens/Logs";
 import Patients from "./screens/Patients";
+import Users from "./screens/Users";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(ISLOGGEDIN);
+  const ref = createRef();
   useEffect(() => {
     tryLogin();
     return () => {};
@@ -47,7 +49,8 @@ function App() {
       {isLoggedIn === true ? (
         <Route path="/" element={<ControlPanel />}>
           <Route path="pacientes" index element={<Patients />} />
-          <Route path="registros" index element={<Logs />} />
+          <Route path="registros" element={<Logs />} />
+          {/* <Route path="usuarios" element={<Users />} /> */}
           <Route path="*" element={<div>:c</div>} />
         </Route>
       ) : (

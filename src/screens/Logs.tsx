@@ -20,6 +20,7 @@ import {
 import pocketbaseEs, { Record } from "pocketbase";
 import React, { createRef, useEffect, useState } from "react";
 import { SERVER_URL } from "../State";
+// @ts-ignore
 import Pdf from "react-to-pdf";
 const useStyles = createStyles((theme) => ({
   root: {
@@ -60,7 +61,7 @@ function Logs() {
     return () => {};
   }, []);
 
-  const rows = logs?.items.map((element: any) => (
+  const rows = logs?.items?.map((element: any) => (
     <tr key={element.id}>
       <td>{element.id}</td>
       <td>{element.id_usuario}</td>
@@ -151,7 +152,7 @@ function Logs() {
       </Modal>
 
       <Pdf targetRef={ref} filename="logs.pdf">
-        {({ toPdf }) => (
+        {({ toPdf }: any) => (
           <Affix position={{ bottom: 20, right: 20 }}>
             <ActionIcon
               size="xl"
@@ -160,9 +161,8 @@ function Logs() {
               onClick={() => {
                 setOpened(true);
                 setTimeout(() => {
-                  toPdf()
-
-                }, 500)
+                  toPdf();
+                }, 500);
               }}
             >
               <IconPrinter size={34} />
