@@ -17,6 +17,9 @@ function ControlPanel() {
               ? theme.colors.dark[8]
               : theme.colors.gray[0],
         },
+        body: {
+          height: "100%",
+        }
       })}
     >
     <Outlet/>

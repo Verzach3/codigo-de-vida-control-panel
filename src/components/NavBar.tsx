@@ -117,7 +117,7 @@ const tabs = {
     // { link: "", label: "Receipts", icon: IconLicense },
     // { link: "", label: "Reviews", icon: IconMessage2 },
     // { link: "", label: "Messages", icon: IconMessages },
-    { link: "/usuarios", label: "Pacientes", icon: IconUsers },
+    { link: "/pacientes", label: "Pacientes", icon: IconUsers },
     // { link: "", label: "Refunds", icon: IconReceiptRefund },
     // { link: "", label: "Files", icon: IconFileAnalytics },
   ],
@@ -175,14 +175,14 @@ export default function AppNavbar() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <a
+        {/* <a
           href="#"
           className={classes.link}
           onClick={(event) => event.preventDefault()}
         >
           <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
           <span>Cambiar cuenta</span>
-        </a>
+        </a> */}
 
         <a
           href="#"

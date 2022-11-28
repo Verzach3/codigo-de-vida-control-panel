@@ -8,8 +8,11 @@ import {
   ScrollArea,
   Table,
   Text,
+  Modal,
+  Affix,
 } from "@mantine/core";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { useForm } from "@mantine/form";
+import { IconPencil, IconPlus, IconTrash } from "@tabler/icons";
 import pocketbaseEs from "pocketbase";
 import React, { useEffect, useState } from "react";
 import { SERVER_URL } from "../State";
@@ -24,25 +27,31 @@ interface UsersTableProps {
   }[];
 }
 
-const jobColors: Record<string, string> = {
-  engineer: "blue",
-  manager: "cyan",
-  designer: "pink",
-};
+interface FormValues {
+  name: string;
+  email: string;
+  accessLevel: "all" | "read" | "write";
+}
 
 export function Users() {
   const theme = useMantineTheme();
   const [data, setData] = useState<any>();
+  const [createOpen, setCreateOpen] = useState(false);
+  const form = useForm<FormValues>({
+    initialValues: {
+      name: "",
+      email: "",
+      accessLevel: "read",
+    },
+  });
   useEffect(() => {
-    updateUser()
-    return () => {
-    }
-  }, [])
-  
-  async function updateUser(){
-    const client = new pocketbaseEs(SERVER_URL);
-    setData(await client.users.getList())
+    updateUser();
+    return () => {};
+  }, []);
 
+  async function updateUser() {
+    const client = new pocketbaseEs(SERVER_URL);
+    setData(await client.users.getList());
   }
 
   const rows = data?.items.map((item: any) => (
@@ -57,9 +66,7 @@ export function Users() {
       </td>
 
       <td>
-        <Badge
-          variant={theme.colorScheme === "dark" ? "light" : "outline"}
-        >
+        <Badge variant={theme.colorScheme === "dark" ? "light" : "outline"}>
           {item.profile.access_level}
         </Badge>
       </td>
@@ -104,6 +111,15 @@ export function Users() {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
+
+      <Modal opened={createOpen} onClose={() => setCreateOpen((val) => !val)}>
+        <div>Modal content</div>
+      </Modal>
+      <Affix position={{ bottom: 20, right: 20 }}>
+        <ActionIcon variant="filled" radius="xl" size={40} onClick={() => setCreateOpen(true)}>
+          <IconPlus />
+        </ActionIcon>
+      </Affix>
     </ScrollArea>
   );
 }

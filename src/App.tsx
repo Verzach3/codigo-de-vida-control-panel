@@ -55,7 +55,7 @@ function App() {
 
   return (
     <Routes>
-      {isLoggedIn === true ? (
+      {isLoggedIn ? (
         <Route path="/" element={<ControlPanel />}>
           <Route path="pacientes" index element={<Patients />} />
           <Route path="registros" element={<Logs />} />

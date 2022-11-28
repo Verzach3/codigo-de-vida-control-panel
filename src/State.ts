@@ -8,4 +8,4 @@ export const ISLOGGEDIN = atom<boolean | undefined>({
 
 
 export const MAIN_SERVER = "20.118.130.63"
-export const SERVER_URL = `http://${MAIN_SERVER}:80`;
+export const SERVER_URL = `https://cdv.gaer.tech`;
